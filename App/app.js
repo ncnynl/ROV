@@ -13,6 +13,14 @@ var app = express();
 var server = app.listen(8080);
 var io = require("socket.io")(server);
 
+//serialport setup
+var portname = '';
+var serialport = require('serialport');
+var port = new SerialPort(portname,{
+  baudRate: 9600,
+  parser: serialport.parsers.readline('\n')
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
