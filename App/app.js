@@ -61,9 +61,15 @@ app.use(function(err, req, res, next) {
 
 //socket.io connection
 io.on('connection',function(socket){
-  socket.on('motor',function(values){
-
+  socket.on('onChange',function(values){
+    //send values to arduino
   });
+  //continuously send sensor data
+  setInterval(function(){
+    //get sensor data from arduino
+    var num = 0;
+    io.emit('sensorData',num); //send  
+  },1000);
 });
 
 
