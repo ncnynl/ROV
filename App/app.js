@@ -14,13 +14,22 @@ var server = app.listen(8080);
 var io = require("socket.io")(server);
 
 //serialport setup
-var portname = '';
+var portname = ''; //needs port name
 var serialport = require('serialport');
 var port = new SerialPort(portname,{
   baudRate: 9600,
   parser: serialport.parsers.readline('\n')
 });
 
+var temp;
+//assigns incoming temperature data to temp variable
+port.on('data', (data)=> {
+  temp = data;
+});
+
+port.on('error', (err)=> {
+  console.log("Error: " + err);
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -69,14 +78,13 @@ app.use(function(err, req, res, next) {
 
 //socket.io connection
 io.on('connection',function(socket){
+  //send motor values to arduino
   socket.on('onChange',function(values){
-    //send values to arduino
+    port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
   });
-  //continuously send sensor data
-  setInterval(function(){
-    //get sensor data from arduino
-    var num = 0;
-    io.emit('sensorData',num); //send  
+  //continuously send sensor data to client
+  setInterval(()=>{
+    io.emit('sensorData',temp); 
   },1000);
 });
 
