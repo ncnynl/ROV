@@ -1,35 +1,16 @@
-<<<<<<< HEAD
 extends layout
-block append head
-	script(src="/socket.io/socket.io.js")
-	meta#Viewport(name="viewport" width="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
-
-	//Components
-	srcipt(src="/js/libs/gamepad.js" type="text/javascript")
 
 block content
-	div#UI
-		div#controls
-		div#webcam
-			iframe
-=======
-extends ./layout
-
-block content
-    .container
-        .row
-            h1.text-center ROV Client
-    .container
+    .container-fluid.nopadding
         .row
             .col-md-6
-                h2.text-center Sensor Data
                 .panel.panel-primary
                     .panel-heading
                         h3.panel-title Temperature
                     .panel-body.tempData
             .col-md-6
-                h2.text-center Input
                 #dataInp
+                //
                     label(for='arm') Arm
                     input(type='range' min='0' max='1023')#arm
                     label(for='vertical_b') Vertical back
@@ -42,8 +23,9 @@ block content
                     input(type='range' min='0' max='1023')#right_m
         .row
             .col-md-12
-                iframe#webCam
+                img#webcam1
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script(type='text/javascript', src='js/client.js')
->>>>>>> master
+    script(type='text/javascript', src='js/binary.min.js')
+    script(type='text/javascript', src='js/webcam.js')
