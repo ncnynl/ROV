@@ -1,5 +1,13 @@
 extends layout
+block append head
+	script(src="/socket.io/socket.io.js")
+	meta#Viewport(name="viewport" width="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+
+	//Components
+	srcipt(src="/js/libs/gamepad.js" type="text/javascript")
 
 block content
-  h1= title
-  p Welcome to #{title}
+	div#UI
+		div#controls
+		div#webcam
+			iframe
