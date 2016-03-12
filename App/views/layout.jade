@@ -1,7 +1,14 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        title ROV Client Interface
+        link(rel='stylesheet', href='css/bootstrap.min.css')
+        link(rel='stylesheet', href='css/style.css')
+        block head
+    body
+        block content
+
+        script(type='text/javascript', src='js/jquery-1.12.1.min.js')
+        script(type='text/javascript', src='js/bootswatch.js')
+        block script
