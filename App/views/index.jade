@@ -14,6 +14,17 @@ block content
                     .panel-body.tempData
             .col-md-6
                 h2.text-center Input
+                #dataInp
+                    label(for='arm') Arm
+                    input(type='range' min='0' max='1023')#arm
+                    label(for='vertical_b') Vertical back
+                    input(type='range' min='0' max='1023')#vertical_b
+                    label(for='vertical_f') Vertical front
+                    input(type='range' min='0' max='1023')#vertical_f
+                    label(for='left_m') Left motor
+                    input(type='range' min='0' max='1023')#left_m
+                    label(for='right_m') Right motor
+                    input(type='range' min='0' max='1023')#right_m
         .row
             .col-md-12
                 iframe#webCam
