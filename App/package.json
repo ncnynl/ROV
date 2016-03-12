@@ -1,5 +1,5 @@
 {
-  "name": "ROV",
+  "name": "rov_app",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -15,5 +15,14 @@
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
     "serialport": "^2.0.6"
-  }
+  },
+  "description": "Testing using node.js, socket.io and serialport to control an ROV based off Arduino and Raspberry Pi",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oswinso/ROV/tree/master/App"
+  },
+  "author": "",
+  "license": "ISC"
 }
