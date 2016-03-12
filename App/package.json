@@ -16,8 +16,6 @@
     "socket.io": "^1.4.5",
     "serialport": "^2.0.6"
   },
-    "socket.io": "^1.4.5"
-  },
   "description": "Testing using node.js, socket.io and serialport to control an ROV based off Arduino and Raspberry Pi",
   "main": "app.js",
   "devDependencies": {},
