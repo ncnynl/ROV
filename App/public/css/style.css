@@ -2,3 +2,7 @@
     width: 100%;
     height: 400px;
 }
+
+.nopadding {
+	padding: 0 0 0 0;
+}

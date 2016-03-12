@@ -4,10 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var fs = require('fs');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var BinaryServer = require('binaryjs').BinaryServer;
 
 var app = express();
 var server = app.listen(8080);
@@ -76,6 +76,16 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
+
+var server = BinaryServer({port: 9001});
+
+server.on('connection', function(client) {
+    client.on('stream', function() {
+        console.log('sending stream');
+        var file = fs.createReadStream('/tmp/stream/pic.jpg');
+        client.send(file);
+    });
+})
 
 //socket.io connection
 io.on('connection', function (socket) {
