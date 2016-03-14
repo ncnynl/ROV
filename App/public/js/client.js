@@ -6,6 +6,9 @@ $(function() {
     socket.on('sensorData', function(temp) {
         $('.tempData').val(temp)
     })
+    // socket.on('start-stream', function() {
+    //     wsavc.playStream()
+    // })
     $('#dataInp').keypress(function(evt) {
         if (evt.which == 13) { //Enter Key
             payload = {}
@@ -14,5 +17,5 @@ $(function() {
             })
             socket.emit('onChange', payload)
         }
-    })
+    });
 });

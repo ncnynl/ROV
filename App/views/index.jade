@@ -23,10 +23,9 @@ block content
                     input(type='range' min='0' max='1023')#right_m
         .row
             .col-md-12
-                //img#webcam1
-                video(src="http://localhost:3000/stream.mp4")
+                canvas#webcam1
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script(type='text/javascript', src='js/client.js')
     //script(type='text/javascript', src='js/binary.min.js')
-    //script(type='text/javascript', src='js/webcam.js')
+    script(type='text/javascript', src='js/webcam.js')
