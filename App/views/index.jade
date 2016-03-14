@@ -24,6 +24,10 @@ block content
         .row
             .col-md-12
                 canvas#webcam1
+            button(type="button" onclick="wsavc.playStream()") Play Stream
+            button(type="button" onclick="wsavc.stopStream()") Stop Stream
+            button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
+
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script(type='text/javascript', src='js/client.js')

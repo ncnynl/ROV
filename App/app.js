@@ -10,14 +10,11 @@ var users = require('./routes/users');
 //var BinaryServer = require('binaryjs').BinaryServer;
 
 var app = express();
-var server = app.listen(8080);
-var io = require("socket.io")(server);
+//var server = app.listen(3000);
+
+//var io = require("socket.io")(server);
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
-
-var WebStreamerServer = require('./lib/raspivid');
-
-var silence = new WebStreamerServer(server);
 
 //serialport setup
 var portname = '/dev/ttyACM0'; //needs port name
@@ -81,6 +78,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
+/*
 //socket.io connection
 io.on('connection', function (socket) {
     //send motor values to arduino
@@ -91,7 +89,7 @@ io.on('connection', function (socket) {
     setInterval(()=> {
         io.emit('sensorData', temp);
     }, 1000);
-});
+});*/
 
 
 module.exports = app;
