@@ -3,12 +3,12 @@ extends layout
 block content
     .container-fluid
         .row
-            .col-md-8
+            .col-md-9
                 canvas#webcam1
                 button(type="button" onclick="wsavc.playStream()") Play Stream
                 button(type="button" onclick="wsavc.stopStream()") Stop Stream
                 button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
-            .col-md-4
+            .col-md-3
                 .row
                     .panel.panel-primary
                         .panel-heading
