@@ -1,15 +1,49 @@
 extends layout
 
 block content
-    .container-fluid.nopadding
+    .container-fluid
         .row
-            .col-md-6
-                .panel.panel-primary
-                    .panel-heading
-                        h3.panel-title Temperature
-                    .panel-body.tempData
-            .col-md-6
+            .col-md-8
+                //canvas#webcam1
+                button(type="button" onclick="wsavc.playStream()") Play Stream
+                button(type="button" onclick="wsavc.stopStream()") Stop Stream
+                button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
+            .col-md-4
+                .row
+                    .panel.panel-primary
+                        .panel-heading
+                            h3.panel-title Temperature
+                        .panel-body.tempData
                 #dataInp
+                    .row
+                        .col-md-4
+                        .col-md-4
+                            .panel.panel-primary
+                                .panel-heading
+                                    h3.panel-title Vertical Front
+                                .panel-body.vertical_f
+                        .col-md-4
+                    .row
+                        .col-md-4
+                            .panel.panel-primary
+                                .panel-heading
+                                    h3.panel-title Left Motor
+                                .panel-body.left_m
+                        .col-md-4
+                        .col-md-4
+                            .panel.panel-primary
+                                .panel-heading
+                                    h3.panel-title Right Motor
+                                .panel-body.right_m
+                    .row
+                        .col-md-4
+                        .col-md-4
+                            .panel.panel-primary
+                                .panel-heading
+                                    h3.panel-title Vertical Back
+                                .panel-body.vertical_b
+                        .col-md-4
+
                 //
                     label(for='arm') Arm
                     input(type='range' min='0' max='1023')#arm
@@ -21,12 +55,6 @@ block content
                     input(type='range' min='0' max='1023')#left_m
                     label(for='right_m') Right motor
                     input(type='range' min='0' max='1023')#right_m
-        .row
-            .col-md-12
-                canvas#webcam1
-            button(type="button" onclick="wsavc.playStream()") Play Stream
-            button(type="button" onclick="wsavc.stopStream()") Stop Stream
-            button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
 
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
