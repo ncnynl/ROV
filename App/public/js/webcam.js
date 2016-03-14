@@ -1,4 +1,4 @@
-var WSAvcPlayer = require('../vendor');
+var WSAvcPlayer = require('../../vendor');
 
 var canvas = document.getElementById("webcam1")
 // Create h264 player
@@ -8,5 +8,3 @@ wsavc.connect(uri);
 
 //for button callbacks
 window.wsavc = wsavc;
-
-wsavc.playStream()

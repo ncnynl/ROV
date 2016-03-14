@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     deploy_dir : 'release',
   });
 
-  grunt.loadNpmTasks('grunt-browserify');
   grunt.file.expand({filter:'isDirectory'}, 'grunt/**').forEach(grunt.loadTasks);
   grunt.log.writeln("Working in '%s'", grunt.config('deploy_dir'));
 

@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 
     pack : {
       files: {
-        'public/_main.js': ['public/main.js'],
+        'public/js/_webcam.js': ['public/js/webcam.js'],
       }
     }
   });
