@@ -8,7 +8,9 @@ var RpiServer = new Class({
   Extends : Server,
 
   options : {
-    fps : 12,
+    fps : 30,
+    width : 1280,
+    height : 720
   },
 
   get_feed : function(){
