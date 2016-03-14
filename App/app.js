@@ -15,6 +15,10 @@ var io = require("socket.io")(server);
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 
+var WebStreamerServer = require('./lib/raspivid');
+
+var silence = new WebStreamerServer(server);
+
 //serialport setup
 var portname = '/dev/ttyACM0'; //needs port name
 var port = new SerialPort(portname, {
