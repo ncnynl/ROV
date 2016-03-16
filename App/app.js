@@ -5,14 +5,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var routes = require('./routes/index');
-var users = require('./routes/users');
-//var BinaryServer = require('binaryjs').BinaryServer;
 
+var socket_io = require("socket.io");
+
+// Express
 var app = express();
 //var server = app.listen(3000);
 
-//var io = require("socket.io")(server);
+// Socket.io
+var io = socket_io();
+app.io = io;
+
+// Routes
+var routes = require('./routes/index')(io);
+var users = require('./routes/users');
+
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 
@@ -78,7 +85,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-/*
+
 //socket.io connection
 io.on('connection', function (socket) {
     //send motor values to arduino
@@ -89,7 +96,7 @@ io.on('connection', function (socket) {
     setInterval(()=> {
         io.emit('sensorData', temp);
     }, 1000);
-});*/
+});
 
 
 module.exports = app;

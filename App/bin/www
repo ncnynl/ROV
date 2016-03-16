@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('ROV:server');
 var http = require('http');
 
-var WebStreamerServer = require('../lib/raspivid');
+//var WebStreamerServer = require('../lib/raspivid');
 
 /**
  * Get port from environment and store in Express.
@@ -23,7 +23,13 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-var silence = new WebStreamerServer(server);
+/**
+ * Socket.io
+ */
+var io = app.io;
+io.attach(server);
+
+//var silence = new WebStreamerServer(server);
 
 /**
  * Listen on provided port, on all network interfaces.
