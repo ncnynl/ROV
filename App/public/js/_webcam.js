@@ -2589,8 +2589,6 @@ wsavc.connect(uri);
 
 //for button callbacks
 window.wsavc = wsavc;
-
-wsavc.playStream()
 },{"../../vendor":34}],22:[function(require,module,exports){
 // universal module definition
 (function (root, factory) {
