@@ -16,7 +16,7 @@ var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 
 //serialport setup
-var portname = '/dev/ttyACM0'; //needs port name
+var portname = '/dev/ttyACM1'; //needs port name
 var port = new SerialPort(portname, {
     baudRate: 9600,
     parser: serialport.parsers.readline('\n')
