@@ -16,7 +16,7 @@ var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 
 //serialport setup
-var portname = ''; //needs port name
+var portname = '/dev/ttyACM0'; //needs port name
 var port = new SerialPort(portname, {
     baudRate: 9600,
     parser: serialport.parsers.readline('\n')
@@ -81,7 +81,7 @@ app.use(function (err, req, res, next) {
 io.on('connection', function (socket) {
     //send motor values to arduino
     socket.on('onChange', function (values) {
-        port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
+        port.write(`${values['vertical_f']},${values['vertical_b']},${values['left_m']},${values['right_m']},${values['arm']}`);
     });
     //continuously send sensor data to client
     setInterval(()=> {
