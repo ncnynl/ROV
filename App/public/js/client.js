@@ -2,7 +2,7 @@
 //0-1023
 //
 $(function() {
-    var socket = io.connect('http://localhost') //Enter valid network IP
+    var socket = io.connect('http://localhost:3000') //Enter valid network IP
     socket.on('sensorData', function(temp) {
         $('.tempData').val(temp)
     })

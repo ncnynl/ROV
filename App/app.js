@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 
 var app = express();
-var server = app.listen(8080);
+var server = app.listen(3000);
 var io = require("socket.io")(server);
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
@@ -79,6 +79,7 @@ app.use(function (err, req, res, next) {
 
 //socket.io connection
 io.on('connection', function (socket) {
+    console.log('user has connected');
     //send motor values to arduino
     socket.on('onChange', function (values) {
         port.write(`${values['vertical_f']},${values['vertical_b']},${values['left_m']},${values['right_m']},${values['arm']}`);
