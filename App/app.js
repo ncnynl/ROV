@@ -102,17 +102,20 @@ io.on('connection', function (socket) {
         // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
         // console.log(values);
     });
-    // continuosly write data to arduino
-    setInterval(()=> {
-        var out = "<"+motorValues['vertical_b'].toString()+">\n";
-        port.write(out);
-        console.log(out);
-    }, 1000);
+    serialPort.on("open", function() {
+        setInterval(()=> {
+            var out = "<"+motorValues['vertical_b'].toString()+">\n";
+            port.write(out, function() {
+                port.drain();
+            });
+        }, 500);
 
     //continuously send sensor data to client
-    setInterval(()=> {
-        io.emit('sensorData', temp);
-    }, 1000);
+        setInterval(()=> {
+            io.emit('sensorData', temp);
+        }, 1000);
+    });
+    // continuosly write data to arduin  
 });
 
 
