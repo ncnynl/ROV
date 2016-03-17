@@ -24,6 +24,7 @@ var SerialPort = require('serialport').SerialPort;
 
 //serialport setup
 var portname = '/dev/ttyACM0'; //needs port name
+// var portname = '/dev/cu.usbmodem1411';
 var serialPort = new SerialPort(portname, {
     baudRate: 115200,
     //parser: serialport.parsers.readline('\n'),
@@ -106,7 +107,7 @@ io.on('connection', function (socket) {
                         console.log(out);
                     });
                 });
-            }, 500);
+            }, 100);
 
             //continuously send sensor data to client
             setInterval(()=> {
@@ -116,6 +117,7 @@ io.on('connection', function (socket) {
             //assigns incoming temperature data to temp variable
             serialPort.on('data', (data)=> {
                 temp = data;
+                console.log(temp.toString('ascii'));
             });
 
             serialPort.on('error', (err)=> {
