@@ -89,9 +89,11 @@ app.use(function (err, req, res, next) {
 //socket.io connection
 io.on('connection', function (socket) {
     console.log('user has connected');
+    SerialPort.
     //send motor values to arduino
     socket.on('onChange', function (values) {
-        port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
+        // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
+        port.write("5");
         console.log(values);
     });
     //continuously send sensor data to client
