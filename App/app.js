@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(8080);
 var io = require("socket.io")(server);
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
