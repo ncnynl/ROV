@@ -101,8 +101,8 @@ io.on('connection', function (socket) {
             console.log("connected to arduino");
             setInterval(()=> {
                 var out = "<"+motorValues['vertical_b'].toString()+">\n";
-                serialPort.write(out, function() {
-                    serialPort.drain(function() {
+                serialPort.drain(function() {
+                    serialPort.write(out, function() {
                         console.log(out);
                     });
                 });
