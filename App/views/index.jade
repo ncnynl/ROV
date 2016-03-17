@@ -14,6 +14,7 @@ block content
                         .panel-heading
                             h3.panel-title Temperature
                         .panel-body.tempData
+                            p#test hi
                 #dataInp
                     .row
                         .col-md-4
@@ -22,7 +23,7 @@ block content
                                 .panel-heading
                                     h3.panel-title Vertical Front
                                 .panel-body
-                                    p#vertical_f
+                                    p#vertical_f 0
                         .col-md-4
                     .row
                         .col-md-4
@@ -30,14 +31,14 @@ block content
                                 .panel-heading
                                     h3.panel-title Left Motor
                                 .panel-body
-                                    p#left_m
+                                    p#left_m 0
                         .col-md-4
                         .col-md-4
                             .panel.panel-primary
                                 .panel-heading
                                     h3.panel-title Right Motor
                                 .panel-body
-                                    p#right_m
+                                    p#right_m 0 
                     .row
                         .col-md-4
                         .col-md-4
@@ -45,7 +46,7 @@ block content
                                 .panel-heading
                                     h3.panel-title Vertical Back
                                 .panel-bodyp
-                                    #vertical_b
+                                    p#vertical_b 0
                         .col-md-4
 
                 //
@@ -62,6 +63,6 @@ block content
 
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
-    //script(type='text/javascript', src='js/client.js')
-    //script(type='text/javascript', src='js/binary.min.js')
+    script(type='text/javascript', src='js/client.js')
+
     script(type='text/javascript', src='js/_webcam.js')

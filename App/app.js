@@ -91,6 +91,7 @@ io.on('connection', function (socket) {
     //send motor values to arduino
     socket.on('onChange', function (values) {
         port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
+        console.log(values);
     });
     //continuously send sensor data to client
     setInterval(()=> {

@@ -1,6 +1,7 @@
 //Joystick / Keyboard
 //0-1023
 //
+var socket;
 
 var motorValues = {
     vertical_f: 0,
@@ -18,30 +19,18 @@ var tmpValues = {
     arm: 0
 }
 
-(function($) {
-    $(document).ready(function() {
-        var socket = io.connect('http://localhost:3000') //Enter valid network IP
-        socket.on('connect', function() {
-            window.setInterval(motorController, 10);
-        });
-        socket.on('sensorData', function(temp) {
-            $('.tempData').val(temp)
-        })
-
+$(document).ready(function() {
+    socket = io.connect('http://127.0.0.1:3000'); //Enter valid network IP
+    console.log("is this running?");
+    socket.on('connect', function() {
+        console.log("connected to server");
+        window.setInterval(motorController, 10);
     });
-})(jQuery);​
+    socket.on('sensorData', function(temp) {
+        $('.tempData').val(temp);
+    })
 
-
-    $('#dataInp').keypress(function(evt) {
-        if (evt.which == 13) { //Enter Key
-            payload = {}
-            $(this).children().each(function() {
-                payload[$(this).attr('id')] = $(this).val()
-            })
-            socket.emit('onChange', payload)
-        }
-    });
-};  
+});
 
 function motorController() {
     
@@ -51,8 +40,8 @@ function motorController() {
         return;
     }
     var gp = gamepads[0];
-    var tmpValues.left_m = (gp.axes[1] * 100).toFixed(2)*-1;
-    var tmpValues.right_m = (gp.axes[3] * 100).toFixed(2)*-1;
+    tmpValues.left_m = (gp.axes[1] * 100).toFixed(2)*-1;
+    tmpValues.right_m = (gp.axes[3] * 100).toFixed(2)*-1;
 
     //Front Motors
     if(buttonPressed(gp.buttons[4])) {
@@ -83,10 +72,10 @@ function motorController() {
     if(changed) {
         socket.emit('onChange', motorValues);
     }
-    $("vertical_f").text(motorValues.vertical_f);
-    $("left_m").text(motorValues.left_m);
-    $("right_m").text(motorValues.right_m);
-    $("vertical_b").text(motorValues.vertical_b);
+    $("#vertical_f").text(motorValues.vertical_f);
+    $("#left_m").text(motorValues.left_m);
+    $("#right_m").text(motorValues.right_m);
+    $("#vertical_b").text(motorValues.vertical_b);
 }
 
 function buttonPressed(b) {
