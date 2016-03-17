@@ -104,7 +104,9 @@ io.on('connection', function (socket) {
     });
     // continuosly write data to arduino
     setInterval(()=> {
-        port.write(motorValues['vertical_b'].toString()+"\n");
+        var out = "<"+motorValues['vertical_b'].toString()+">\n";
+        port.write(out);
+        console.log(out);
     }, 1000);
 
     //continuously send sensor data to client
