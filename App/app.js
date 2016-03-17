@@ -4,14 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
-var routes = require('./routes/index');
+var socket_io = require("socket.io");
+
+// Express
+var app = express();
+//var server = app.listen(3000);
+
+// Socket.io
+var io = socket_io();
+app.io = io;
+
+// Routes
+var routes = require('./routes/index')(io);
 var users = require('./routes/users');
 
-
-var app = express();
-var server = app.listen(8080);
-var io = require("socket.io")(server);
 var serialport = require('serialport');
 var SerialPort = serialport.SerialPort;
 
@@ -77,12 +85,14 @@ app.use(function (err, req, res, next) {
     });
 });
 
+
 //socket.io connection
 io.on('connection', function (socket) {
     console.log('user has connected');
     //send motor values to arduino
     socket.on('onChange', function (values) {
-        port.write(`${values['vertical_f']},${values['vertical_b']},${values['left_m']},${values['right_m']},${values['arm']}`);
+        port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
+        console.log(values);
     });
     //continuously send sensor data to client
     setInterval(()=> {

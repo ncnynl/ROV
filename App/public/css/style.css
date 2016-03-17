@@ -1,4 +1,8 @@
 #webCam {
-    width: 100%;
-    height: 400px;
+    width: 960px;
+    height: 540px;
+}
+
+.nopadding {
+	padding: 0 0 0 0;
 }
