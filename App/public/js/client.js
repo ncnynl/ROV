@@ -21,7 +21,7 @@ var tmpValues = {
 }
 
 $(document).ready(function() {
-    socket = io.connect('http://127.0.0.1:3000'); //Enter valid network IP
+    socket = io.connect('http://192.168.0.103:3000'); //Enter valid network IP
     console.log("is this running?");
     socket.on('connect', function() {
         console.log("connected to server");
