@@ -26,18 +26,11 @@ var SerialPort = require('serialport').SerialPort;
 var portname = '/dev/ttyACM0'; //needs port name
 var serialPort = new SerialPort(portname, {
     baudRate: 115200,
-    //parser: serialport.parsers.readline('\n')
-});
+    //parser: serialport.parsers.readline('\n'),
+}, false); // do not open immediately
 
 var temp;
-//assigns incoming temperature data to temp variable
-serialPort.on('data', (data)=> {
-    temp = data;
-});
 
-serialPort.on('error', (err)=> {
-    console.log("Error: " + err);
-})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -101,21 +94,34 @@ io.on('connection', function (socket) {
         // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
         // console.log(values);
     });
-    serialPort.on("open", function() {
-        console.log("connected to arduino");
-        setInterval(()=> {
-            var out = "<"+motorValues['vertical_b'].toString()+">\n";
-            serialPort.write(out, function() {
-                serialPort.drain(function() {
-                    console.log(out);
+    serialPort.open(function(error) {
+        if(error) {
+            console.log('failed to open serial port: '+error);
+        } else {
+            console.log("connected to arduino");
+            setInterval(()=> {
+                var out = "<"+motorValues['vertical_b'].toString()+">\n";
+                serialPort.write(out, function() {
+                    serialPort.drain(function() {
+                        console.log(out);
+                    });
                 });
-            });
-        }, 500);
+            }, 500);
 
-    //continuously send sensor data to client
-        setInterval(()=> {
-            io.emit('sensorData', temp);
-        }, 1000);
+            //continuously send sensor data to client
+            setInterval(()=> {
+                io.emit('sensorData', temp);
+            }, 1000);
+
+            //assigns incoming temperature data to temp variable
+            serialPort.on('data', (data)=> {
+                temp = data;
+            });
+
+            serialPort.on('error', (err)=> {
+                console.log("Error: " + err);
+            });
+        }
     });
     // continuosly write data to arduin  
 });
