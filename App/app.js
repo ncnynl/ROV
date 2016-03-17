@@ -25,7 +25,7 @@ var SerialPort = require('serialport').SerialPort;
 //serialport setup
 var portname = '/dev/ttyACM0'; //needs port name
 var serialPort = new SerialPort(portname, {
-    baudRate: 9600,
+    baudRate: 115200,
     //parser: serialport.parsers.readline('\n')
 });
 
