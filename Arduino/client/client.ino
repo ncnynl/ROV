@@ -2,7 +2,7 @@
 //initialise ports
 
 bool receivedData = false;
-String motorVal = '';
+String motorVal;
 
 void setup() {
   //assign ports for motors + sensors
@@ -10,15 +10,15 @@ void setup() {
 }
 
 void loop() {
-  if(receivedData){
+  while(Serial.available()){
+    motorVal = Serial.readString();
     Serial.println(motorVal);
-    receivedData = false;
   }
 }
 
-void serialEvent(){
+/*void serialEvent(){
   if(Serial.available()) {
-    motorVal = Serial.read();
+    
     receivedData = true;
   }
-}
+}*/
