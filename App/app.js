@@ -102,7 +102,7 @@ io.on('connection', function (socket) {
         // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
         // console.log(values);
     });
-    serialPort.on("open", function() {
+    port.on("open", function() {
         setInterval(()=> {
             var out = "<"+motorValues['vertical_b'].toString()+">\n";
             port.write(out, function() {
