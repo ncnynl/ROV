@@ -20,23 +20,22 @@ app.io = io;
 var routes = require('./routes/index')(io);
 var users = require('./routes/users');
 
-var serialport = require('serialport');
-var SerialPort = serialport.SerialPort;
+var SerialPort = require('serialport').SerialPort;
 
 //serialport setup
 var portname = '/dev/ttyACM0'; //needs port name
-var port = new SerialPort(portname, {
+var serialPort = new SerialPort(portname, {
     baudRate: 9600,
-    parser: serialport.parsers.readline('\n')
+    //parser: serialport.parsers.readline('\n')
 });
 
 var temp;
 //assigns incoming temperature data to temp variable
-port.on('data', (data)=> {
+serialPort.on('data', (data)=> {
     temp = data;
 });
 
-port.on('error', (err)=> {
+serialPort.on('error', (err)=> {
     console.log("Error: " + err);
 })
 // view engine setup
@@ -102,11 +101,13 @@ io.on('connection', function (socket) {
         // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
         // console.log(values);
     });
-    port.on("open", function() {
+    serialPort.on("open", function() {
         setInterval(()=> {
             var out = "<"+motorValues['vertical_b'].toString()+">\n";
-            port.write(out, function() {
-                port.drain();
+            serialPort.write(out, function() {
+                serialPort.drain(function() {
+                    console.log(out);
+                });
             });
         }, 500);
 
