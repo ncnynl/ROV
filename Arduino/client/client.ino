@@ -13,7 +13,7 @@ void process_data(const char * data) {
   Serial.println(data);
 }
 
-void printString(char[] str) {
+void printString(String str) {
  Serial.println(str); 
 }
 
