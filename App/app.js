@@ -104,7 +104,7 @@ io.on('connection', function (socket) {
                 var out = `${motorValues['vertical_f']},${motorValues['vertical_b']},${motorValues['left_m']},${motorValues['right_m']},${motorValues['arm']}`;
                 serialPort.drain(function() {
                     serialPort.write(out, function() {
-                        console.log(out);
+                        //console.log(out);
                     });
                 });
             }, 100);

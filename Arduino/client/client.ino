@@ -1,11 +1,34 @@
 
 //initialise ports
+//#include <stdio.h>
+//#include <string.h>
+#include <Servo.h>
 
-bool receivedData = false;
+
+//ESC pins
+const int motorLp = 1;
+const int motorRp = 2;
+const int motorV1p = 3;
+const int motorV2p = 4;
+const int motorAp = 5;
+const int portList[] = {motorLp,motorRp,motorV1p,motorV2p,motorAp};
+
+
+//Servos;
+Servo motorL, motorR, motorV1, motorV2, motorA;
+Servo motorList[] = {motorL,motorR,motorV1,motorV2,motorA};
+
 const unsigned int MAX_INPUT = 50;
+
+//
+float motorValues[5];
 
 void setup() {
   //assign ports for motors + sensors
+  for (int i = 0; i < sizeof(motorList); i++){
+    motorList[i].attach(portList[i]);
+  }
+  //init serial
   Serial.begin(9600);
 }
 
@@ -14,7 +37,7 @@ void process_data(const char * data) {
 }
 
 void printString(String str) {
- Serial.println(str); 
+ Serial.print(str+"\n"); 
 }
 
 void processIncomingByte(const byte inByte) {
@@ -42,13 +65,20 @@ void processIncomingByte(const byte inByte) {
 
 void loop() {
   while(Serial.available() > 0){
-    printString(Serial.readString());
+    String readin = Serial.readString();
+    char *arr;
+    readin.toCharArray(arr,readin.length());
+    char *val;
+    int counter = 0;
+    while((val = strtok_r(arr,",",&arr)) != NULL) {
+      motorValues[counter] = atof(val) + 90; //90 means no movement
+      counter++;
+    }
+    
+    for(int i = 0; i < sizeof(motorValues); i++) {
+      //write values to motors
+      motorList[i].write(motorValues[i]);
+    }   
   }
 }
 
-/*void serialEvent(){
-  if(Serial.available()) {
-    
-    receivedData = true;
-  }
-}*/
