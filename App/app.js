@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
         } else {
             console.log("connected to arduino");
             setInterval(()=> {
-                var out = "<"+motorValues['vertical_b'].toString()+">\n";
+                var out = `${values['vertical_f']},${values['vertical_b']},${values['left_m']},${values['right_m']},${values['arm']}`;
                 serialPort.drain(function() {
                     serialPort.write(out, function() {
                         console.log(out);

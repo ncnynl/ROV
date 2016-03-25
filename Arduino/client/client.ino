@@ -13,6 +13,10 @@ void process_data(const char * data) {
   Serial.println(data);
 }
 
+void printString(char[] str) {
+ Serial.println(str); 
+}
+
 void processIncomingByte(const byte inByte) {
   static char input_line [MAX_INPUT];
   static unsigned int input_pos = 0;
@@ -38,7 +42,7 @@ void processIncomingByte(const byte inByte) {
 
 void loop() {
   while(Serial.available() > 0){
-    processIncomingByte (Serial.read());
+    printString(Serial.readString());
   }
 }
 
