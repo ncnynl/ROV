@@ -1,8 +1,12 @@
+/*
+ * Controls servos & brushless motors based on serial input.
+ * 
+ * To Do: 
+ * Temperature sensor
+ * 
+ * 
+ */
 
-//initialise ports
-#include <stdio.h>
-#include <stdlib.h>
-//#include <string.h>
 #include <Servo.h>
 
 const int MOTOR_NUMBER = 5;
@@ -22,9 +26,6 @@ Servo motorList[] = {motorL,motorR,motorV1,motorV2,motorA};
 
 const unsigned int MAX_INPUT = 50;
 
-//
-float motorValues[MOTOR_NUMBER];
-
 void setup() {
   //assign ports for motors + sensors
   for (int i = 0; i < sizeof(motorList); i++){
@@ -34,55 +35,41 @@ void setup() {
   Serial.begin(115200);
 }
 
-void process_data(const char * data) {
-  Serial.println(data);
-}
+float *processData(String input) {
+  static float output[MOTOR_NUMBER];
 
-void printString(String str) {
- Serial.print(str+"\n"); 
-}
+  //copy string to char array
+  char arr[input.length() + 1];
+  input.toCharArray(arr,input.length() + 1);
+  arr[input.length()] = '\0';
+  char *arrp; 
+  arrp = arr;
+  char *val;
+  int counter = 0;
 
-void processIncomingByte(const byte inByte) {
-  static char input_line [MAX_INPUT];
-  static unsigned int input_pos = 0;
-  
-  switch(inByte) {
-    case '\n':
-      input_line[input_pos] = 0;
-      
-      // reset buffer
-      input_pos = 0;
-      break;
-    
-    case '\r':
-      break;
-    
-    default:
-      // keep adding if not full
-      if (input_pos < (MAX_INPUT - 1))
-        input_line [input_pos++] = inByte;
-      break;
-  } //end of switch
-} //end of processIncomingByte
+  //split string by comma
+  while((val = strtok_r(arrp,",",&arrp)) != NULL) {
+    //scale joystick values to motor values
+    output[counter] = (atof(val) + 100)/200 * 180;
+     
+    //max and min boundaries
+    output[counter] = output[counter] > 180 ? 180 :output[counter]; 
+    output[counter] = output[counter] < 0 ? 0 :output[counter];
+    counter++;
+  }
+
+  return output;
+}
 
 void loop() {
-  while(Serial.available() > 0){
+  if(Serial.available() > 0){
     String readin = Serial.readString();
-    char arr[readin.length() + 1];
-    readin.toCharArray(arr,readin.length() + 1);
-    arr[readin.length()] = '\0';
-    char *arrp; 
-    arrp = arr;
-    char *val;
-    int counter = 0;
-    while((val = strtok_r(arrp,",",&arrp)) != NULL) {
-      motorValues[counter] = (atof(val))/200 * 180 + 90; //90 means no movement
-      counter++;
-    }
+    float *motorValues;
+    motorValues = processData(readin);
     
     for(int i = 0; i < MOTOR_NUMBER; i++) {
       //write values to motors
-      motorList[i].write(motorValues[i]);
+      motorList[i].write(*(motorValues + i));
     }
     delay(10);
   }
