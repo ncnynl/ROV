@@ -22,7 +22,7 @@ var tmpValues = {
 
 $(document).ready(function() {
     //socket = io.connect('http://192.168.0.103:3000'); //Enter valid network IP
-    socket = io.connect('http://192.168.0.106:3000', {reconnect: true}); //Enter valid network IP
+    socket = io.connect('http://192.168.0.102:3000', {reconnect: true}); //Enter valid network IP
     console.log(socket);
     socket.on('connect', function() {
         console.log("connected to server");
@@ -42,8 +42,8 @@ function motorController() {
         return;
     }
     var gp = gamepads[0];
-    tmpValues.left_m = (gp.axes[1] * 100).toFixed(2)*-1;
-    tmpValues.right_m = (gp.axes[3] * 100).toFixed(2)*-1;
+    tmpValues.left_m = (gp.axes[1] * 100).toFixed(0)*-1;
+    tmpValues.right_m = (gp.axes[3] * 100).toFixed(0)*-1;
 
     //Front Motors
     if(buttonPressed(gp.buttons[4])) {
