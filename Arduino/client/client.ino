@@ -50,11 +50,20 @@ float *processData(String input) {
   //split string by comma
   while((val = strtok_r(arrp,",",&arrp)) != NULL) {
     //scale joystick values to motor values
-    output[counter] = (atof(val) + 100)/200 * 180;
+    
      
     //max and min boundaries
-    output[counter] = output[counter] > 180 ? 180 :output[counter]; 
-    output[counter] = output[counter] < 0 ? 0 :output[counter];
+    if(counter == 4) {
+      output[counter] = (atof(val))/200 * 180;
+      output[counter] = output[counter] > 180 ? 180 :output[counter]; 
+      output[counter] = output[counter] < 0 ? 0 :output[counter];
+    }
+    else {
+      output[counter] = (atof(val))/200 * 800 + 1100;
+      output[counter] = output[counter] > 1900 ? 1900 :output[counter]; 
+      output[counter] = output[counter] < 1100 ? 1100 :output[counter];
+    }
+    
     counter++;
   }
 
