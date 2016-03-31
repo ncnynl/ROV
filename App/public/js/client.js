@@ -21,8 +21,9 @@ var tmpValues = {
 }
 
 $(document).ready(function() {
-    socket = io.connect('http://192.168.0.103:3000'); //Enter valid network IP
-    console.log("is this running?");
+    //socket = io.connect('http://192.168.0.103:3000'); //Enter valid network IP
+    socket = io.connect('http://192.168.0.106:3000', {reconnect: true}); //Enter valid network IP
+    console.log(socket);
     socket.on('connect', function() {
         console.log("connected to server");
         window.setInterval(motorController, 10);
@@ -72,6 +73,7 @@ function motorController() {
     })
     if(changed) {
         socket.emit('onChange', motorValues);
+        console.log(motorValues);
     }
     $("#vertical_f").text(motorValues.vertical_f);
     $("#left_m").text(motorValues.left_m);

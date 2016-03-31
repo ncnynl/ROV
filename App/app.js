@@ -23,8 +23,8 @@ var users = require('./routes/users');
 var SerialPort = require('serialport').SerialPort;
 
 //serialport setup
-var portname = '/dev/ttyACM0'; //needs port name
-// var portname = '/dev/cu.usbmodem1411';
+//var portname = '/dev/ttyACM0'; //needs port name
+var portname = '/dev/cu.usbmodem1421';
 var serialPort = new SerialPort(portname, {
     baudRate: 115200,
     //parser: serialport.parsers.readline('\n'),
@@ -94,6 +94,7 @@ io.on('connection', function (socket) {
         motorValues = values;
         // port.write(`${values['vertical_f']} ${values['vertical_b']} ${values['left_m']} ${values['right_m']} ${values['arm']}`);
         // console.log(values);
+        console.log(motorValues);
     });
     serialPort.open(function(error) {
         if(error) {
@@ -101,25 +102,25 @@ io.on('connection', function (socket) {
         } else {
             console.log("connected to arduino");
             setInterval(()=> {
-                var out = "<"+motorValues['vertical_b'].toString()+">\n";
-                serialPort.drain(function() {
-                    serialPort.write(out, function() {
+                out = "[";
+                for(var key in motorValues) {
+                    if(motorValues.hasOwnProperty(key)) {
+                        out += "<"+(motorValues[key]+100).toString()+">";
+                    }
+                }
+                out += "]";
+                serialPort.write(out, function() {
+                    console.log("in drain");
+                    serialPort.drain(function() {
                         console.log(out);
                     });
+                    
                 });
-            }, 100);
+            }, 500);
 
-            //continuously send sensor data to client
-            setInterval(()=> {
-                io.emit('sensorData', temp);
-            }, 1000);
-
-            //assigns incoming temperature data to temp variable
-            serialPort.on('data', (data)=> {
-                temp = data;
-                console.log(temp.toString('ascii'));
+            serialPort.on('data', function(data) {
+                console.log(data);
             });
-
             serialPort.on('error', (err)=> {
                 console.log("Error: " + err);
             });
