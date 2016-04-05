@@ -2,8 +2,8 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-// Data wire is plugged into pin 9 on the Arduino
-#define ONE_WIRE_BUS 9
+// Data wire is plugged into pin 2 on the Arduino
+#define ONE_WIRE_BUS 2
 
 //initialise ports
 const int MOTOR_NUMBER = 5;
