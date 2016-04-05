@@ -59,7 +59,6 @@ void processInput() {
       break;
 
     case endOfNumberDelimiter:
-      led(3);
     break;
     
     // fall through to start a new number
