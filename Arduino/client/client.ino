@@ -1,4 +1,4 @@
-#include <Servo.h>
+  #include <Servo.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
@@ -58,6 +58,7 @@ void setup() {
   // Start up the Temperature Sensor Library
   sensors.begin();
   sendConsole("Starting Temperature Sensor Library");
+  delay(1000);
 }
 
 void sendConsole(String msg) {
@@ -67,10 +68,20 @@ void sendConsole(String msg) {
 }
 
 void processNumber(const int receivedNumber[]) {
-  motorList[0].writeMicroseconds(receivedNumber[0] * 4 + 1100);
-  motorList[1].writeMicroseconds(receivedNumber[0] * 4 + 1100);
-  motorList[2].writeMicroseconds(receivedNumber[0] * 4 + 1100);
-  motorList[3].writeMicroseconds(receivedNumber[0] * 4 + 1100);
+  // Left Right Front Back
+  // Front Left Right Back
+  motorList[0].writeMicroseconds(receivedNumber[1] * 4 + 1100);
+  motorList[1].writeMicroseconds(receivedNumber[2] * 4 + 1100);
+  motorList[2].writeMicroseconds(receivedNumber[1] * 4 + 1100);
+  motorList[3].writeMicroseconds(receivedNumber[3] * 4 + 1100);
+  Serial.print(receivedNumber[0] * 4 + 1100);
+  Serial.print(",");
+  Serial.print(receivedNumber[1] * 4 + 1100);
+  Serial.print(",");
+  Serial.print(receivedNumber[2] * 4 + 1100);
+  Serial.print(",");
+  Serial.print(receivedNumber[3] * 4 + 1100);
+  Serial.print(";");
   delay(50);
 } //end of processNumber
 
@@ -116,6 +127,6 @@ void processTemp() {
 void loop() {
   while (Serial.available()) {
     processInput();
-    processTemp();
+    //processTemp();
   }
 }
