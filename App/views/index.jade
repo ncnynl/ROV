@@ -4,17 +4,25 @@ block content
     .container-fluid
         .row
             .col-md-9
-                canvas#webcam1
-                //button(type="button" onclick="wsavc.playStream()") Play Stream
-                //button(type="button" onclick="wsavc.stopStream()") Stop Stream
-                //button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
+                .row
+                    canvas#webcam.webcam
+                    //button(type="button" onclick="wsavc.playStream()") Play Stream
+                    //button(type="button" onclick="wsavc.stopStream()") Stop Stream
+                    //button(type="button" onclick="wsavc.disconnect()") Disconnect Stream
+                // Console
+                .row
+                        .panel.panel-primary.console
+                            .panel-heading
+                                h3.panel-title Messages
+                            .panel-body
+                                p#console Server Start
             .col-md-3
                 .row
                     .panel.panel-primary
                         .panel-heading
                             h3.panel-title Temperature
                         .panel-body.tempData
-                            p#test hi
+                            p#test 0
                 #dataInp
                     .row
                         .col-md-4
@@ -48,21 +56,17 @@ block content
                                 .panel-bodyp
                                     p#vertical_b 0
                         .col-md-4
-
-                //
-                    label(for='arm') Arm
-                    input(type='range' min='0' max='1023')#arm
-                    label(for='vertical_b') Vertical back
-                    input(type='range' min='0' max='1023')#vertical_b
-                    label(for='vertical_f') Vertical front
-                    input(type='range' min='0' max='1023')#vertical_f
-                    label(for='left_m') Left motor
-                    input(type='range' min='0' max='1023')#left_m
-                    label(for='right_m') Right motor
-                    input(type='range' min='0' max='1023')#right_m
+                    .row
+                        .col-md-4
+                        .col-md-4
+                            .panel.panel-primary
+                                .panel-heading
+                                    h3.panel-title Arm
+                                .panel-bodyp
+                                    p#arm 0
+                        .col-md-4
 
 block script
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script(type='text/javascript', src='js/client.js')
-
     script(type='text/javascript', src='js/_webcam.js')

@@ -1,8 +1,26 @@
-#webCam {
+body {
+	overflow: hidden;
+}
+
+#webcam {
     width: 960px;
     height: 540px;
 }
 
 .nopadding {
 	padding: 0 0 0 0;
+}
+
+.console {
+	height: 150px;
+	position: relative;
+}
+
+#console {
+	position: absolute;
+	bottom: 0;
+}
+
+.relative {
+	position: relative;
 }
