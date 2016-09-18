@@ -24,7 +24,7 @@ var SerialPort = require('serialport').SerialPort;
 
 //serialport setup
 //var portname = '/dev/ttyACM0'; //needs port name
-var portname = '/dev/cu.usbmodem1411';
+var portname = '/dev/cu.usbmodemFA131';
 var serialPort = new SerialPort(portname, {
     baudRate: 115200,
     //parser: serialport.parsers.readline('\n'),
@@ -103,13 +103,14 @@ io.on('connection', function (socket) {
                 out = "[";
                 for(var key in motorValues) {
                     if(motorValues.hasOwnProperty(key)) {
-                        out += "<"+(motorValues[key]+100).toString()+">";
+                        //out += "<"+(motorValues[key]+100).toString()+">";
+                        out += "<"+((motorValues[key] > 0) ? 1 : 0).toString()+">";
                     }
                 }
                 out += "]";
                 serialPort.write(out);
                 console.log("OUT: "+out);
-            }, 500);
+            }, 100);
 
             serialPort.on('data', function(data) {
                 console.log("IN: "+data.toString());

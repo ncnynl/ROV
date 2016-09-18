@@ -31,10 +31,10 @@ $(document).ready(function() {
     window.addEventListener("gamepaddisconnected", function(e) {
         joystickConnected = false;
     });
-    socket.on('sensorData', function(temp) {
+    /*socket.on('sensorData', function(temp) {
         $('#tempData').text(temp);
-    })
-    socket = io.connect('http://192.168.0.102:3000', {reconnect: true}); //Enter valid network IP
+    })*/
+    socket = io.connect('http://localhost:3000', {reconnect: true}); //Enter valid network IP
     socket.on('connect', function() {
         console.log("Connected to Server");
         connectedToServer = true;
@@ -43,7 +43,7 @@ $(document).ready(function() {
         $('#console').text(msg + "\n" + $('#console').text())
     })
     window.setInterval(motorController, 10);
-    window.setInterval(handleSocket, 10);
+   // window.setInterval(handleSocket, 10);
 });
 
 function motorController() {
